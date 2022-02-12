@@ -55,4 +55,16 @@ routerProducts.get("/:id", (req, res) => {
   res.json([ans])
 })
 
+
+// Recibir data por medio de metodo post y devolver un json
+// con el objeto que se recibe y un mensaje
+routerProducts.post('/', (req, res) => {
+  // la data se recibe en .body
+  const body = req.body;
+  res.json({
+    message: "Product created",
+    data: body
+  })
+})
+
 module.exports = routerProducts;

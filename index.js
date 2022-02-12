@@ -1,6 +1,7 @@
 const express = require('express');
 const routerApi = require('./routes/index.js');
 const app = express();
+app.use(express.json())
 const port = 3000;
 
 // Escuchar el puerto
