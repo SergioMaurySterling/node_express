@@ -3,15 +3,17 @@ const faker = require('faker');
 const app = express();
 const port = 3000;
 
-// Definir rutas
+// Defini rutas basica con mensaje
 app.get('/', (req, res) => {
   res.send('Hello World! my server in Express');
 })
 
+// crear una ruta personalizada
 app.get('/new-route', (req, res) => {
   res.send('Hello World! I am a new route');
 })
 
+// crear una ruta con parametros, si recibe un ?size=5, entonces devuelve 5 elementos
 app.get('/products', (req, res) => {
   const products = [];
   const { size } = req.query;
@@ -26,6 +28,15 @@ app.get('/products', (req, res) => {
   res.json(products);
 })
 
+// Esta URL chocaria con la de abajo, como es estatica, debe ir primero
+// La dinamica (la de abajo) debe ir despues
+app.get("/products/filter", (req, res) => {
+  res.send('Yo soy un filter');
+})
+
+
+// crear una ruta dinamica, que recibe un id como parametro,
+// y devuelve un json con el objeto que tenga ese id
 app.get("/products/:id", (req, res) => {
   let products = [
     {
@@ -54,6 +65,7 @@ app.get("/products/:id", (req, res) => {
   res.json([ans])
 })
 
+// crear una ruta que recibe mas de un parametro, los recibe y los puede renderizar o trabajar
 app.get('/categories/:categorieId/products/:productId', (req, res) => {
   const { categorieId, productId } = req.params;
   res.json([
@@ -65,6 +77,8 @@ app.get('/categories/:categorieId/products/:productId', (req, res) => {
   ])
 })
 
+
+// crear una ruta que recibe un query con limit y offset
 app.get("/users", (req, res) => {
   const { limit, offset } = req.query;
   if(limit && offset){
@@ -74,6 +88,7 @@ app.get("/users", (req, res) => {
   }
 })
 
+// Escuchar el puerto
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
