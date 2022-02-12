@@ -52,7 +52,7 @@ routerProducts.get("/:id", (req, res) => {
   ]
   const { id } = req.params
   const ans = products.find(product => product.id == id)
-  if (id == 999) {
+  if (id == "999") {
     res.status(404).json({
       error: 'Product not found'
     })
