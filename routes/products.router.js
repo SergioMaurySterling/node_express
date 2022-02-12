@@ -52,6 +52,7 @@ routerProducts.patch('/:id', (req, res) => {
 // Enviarle un id y eliminar un objeto
 routerProducts.delete('/:id', (req, res) => {
   const { id } = req.params;
+  service.delete(id);
   res.json({
     message: "Product deleted",
     id,

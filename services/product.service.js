@@ -46,8 +46,9 @@ class ProductsService {
       this.products[indexOfProduct].image = body.image;
   }
 
-  delete() {
-
+  delete(id) {
+    let indexOfProduct = this.products.findIndex(product => product.id == id);
+    this.products.splice(indexOfProduct,1);
   }
 }
 
