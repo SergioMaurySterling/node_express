@@ -67,4 +67,26 @@ routerProducts.post('/', (req, res) => {
   })
 })
 
+// Recibir un la modificacion parcial de un objeto
+routerProducts.patch('/:id', (req, res) => {
+  // la data se recibe en .body
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: "Product updated",
+    data: body,
+    id,
+  })
+})
+
+// Enviarle un id y eliminar un objeto
+routerProducts.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: "Product deleted",
+    id,
+  })
+})
+
+
 module.exports = routerProducts;
