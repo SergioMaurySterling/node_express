@@ -52,7 +52,13 @@ routerProducts.get("/:id", (req, res) => {
   ]
   const { id } = req.params
   const ans = products.find(product => product.id == id)
-  res.json([ans])
+  if (id == 999) {
+    res.status(404).json({
+      error: 'Product not found'
+    })
+  } else {
+    res.json([ans])
+  }
 })
 
 
@@ -61,7 +67,7 @@ routerProducts.get("/:id", (req, res) => {
 routerProducts.post('/', (req, res) => {
   // la data se recibe en .body
   const body = req.body;
-  res.json({
+  res.status(201).json({
     message: "Product created",
     data: body
   })
