@@ -4,10 +4,10 @@ const categoriesRouter = require('./categories.router');
 const basicRouter = require('./basic.router');
 
 function routerApi (app) {
-  app.use('/products', productsRouter);
-  app.use('/users', usersRouter);
-  app.use('/categories', categoriesRouter);
-  app.use('/', basicRouter);
+  app.use('/api/v1/products', productsRouter);
+  app.use('/api/v1/users', usersRouter);
+  app.use('/api/v1/categories', categoriesRouter);
+  app.use('/api/v1/', basicRouter);
 }
 
 module.exports = routerApi;
