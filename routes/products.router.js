@@ -6,8 +6,8 @@ const service = new ProductsService();
 const routerProducts = express.Router();
 
 // crear una ruta con parametros, si recibe un ?size=5, entonces devuelve 5 elementos
-routerProducts.get('/', (req, res) => {
-  const products = service.find();
+routerProducts.get('/', async (req, res) => {
+  const products = await service.find();
   res.json(products);
 })
 
@@ -17,19 +17,19 @@ routerProducts.get("/filter", (req, res) => {
   res.send('Yo soy un filter');
 })
 
-routerProducts.get("/:id", (req, res) => {
+routerProducts.get("/:id", async (req, res) => {
   const { id } = req.params
-  const ans = service.findOne(id);
+  const ans = await service.findOne(id);
   res.json([ans])
 })
 
 
 // Recibir data por medio de metodo post y devolver un json
 // con el objeto que se recibe y un mensaje
-routerProducts.post('/', (req, res) => {
+routerProducts.post('/', async (req, res) => {
   // la data se recibe en .body
   const body = req.body;
-  service.create(body);
+  await service.create(body);
   res.status(201).json({
     message: "Product created",
     data: body
@@ -37,11 +37,11 @@ routerProducts.post('/', (req, res) => {
 })
 
 // Recibir un la modificacion parcial de un objeto
-routerProducts.patch('/:id', (req, res) => {
+routerProducts.patch('/:id', async (req, res) => {
   // la data se recibe en body
   const { id } = req.params;
   const body = req.body;
-  service.update(id, body);
+  await service.update(id, body);
   res.json({
     message: "Product updated",
     data: body,
@@ -50,9 +50,9 @@ routerProducts.patch('/:id', (req, res) => {
 })
 
 // Enviarle un id y eliminar un objeto
-routerProducts.delete('/:id', (req, res) => {
+routerProducts.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  service.delete(id);
+  await service.delete(id);
   res.json({
     message: "Product deleted",
     id,

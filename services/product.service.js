@@ -20,7 +20,7 @@ class ProductsService {
     }
   }
 
-  create(body) {
+  async create(body) {
     const id = faker.datatype.uuid();
     const { name, price, image } = body;
     this.products.push({
@@ -31,22 +31,22 @@ class ProductsService {
     });
   }
 
-  find() {
+  async find() {
     return this.products;
   }
 
-  findOne(id){
+  async findOne(id){
     return this.products.find(product => product.id == id);
   }
 
-  update(id,body) {
+  async update(id,body) {
     let indexOfProduct = this.products.findIndex(product => product.id == id);
       this.products[indexOfProduct].name = body.name;
       this.products[indexOfProduct].price = body.price;
       this.products[indexOfProduct].image = body.image;
   }
 
-  delete(id) {
+  async delete(id) {
     let indexOfProduct = this.products.findIndex(product => product.id == id);
     this.products.splice(indexOfProduct,1);
   }
