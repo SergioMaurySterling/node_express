@@ -1,4 +1,6 @@
 const faker = require('faker');
+// Boom: manejo de errores
+const boom = require('@hapi/boom');
 
 // POO
 class ProductsService {
@@ -36,11 +38,20 @@ class ProductsService {
   }
 
   async findOne(id){
-    return this.products.find(product => product.id == id);
+    let product = this.products.find(product => product.id == id);
+    if (!product) {
+      throw boom.notFound('Product not found');
+    } else {
+      return product;
+    }
   }
 
   async update(id,body) {
     let indexOfProduct = this.products.findIndex(product => product.id == id);
+    // Error con boom
+    if (indexOfProduct === -1) {
+      throw boom.notFound('Product not found');
+    }
       this.products[indexOfProduct].name = body.name;
       this.products[indexOfProduct].price = body.price;
       this.products[indexOfProduct].image = body.image;

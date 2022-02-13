@@ -17,10 +17,16 @@ routerProducts.get("/filter", (req, res) => {
   res.send('Yo soy un filter');
 })
 
-routerProducts.get("/:id", async (req, res) => {
-  const { id } = req.params
-  const ans = await service.findOne(id);
-  res.json([ans])
+//este router ahora captura el error, llama al middleware de error y lo envia al cliente con next
+routerProducts.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const ans = await service.findOne(id);
+    res.json([ans])
+  } catch (error) {
+    //le enviamos a los middlewares el error
+    next(error)
+  }
 })
 
 
