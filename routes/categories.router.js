@@ -1,17 +1,14 @@
 const express = require('express');
 
-const routerCategories = express.Router();
+const router = express.Router();
 
-// crear una ruta que recibe mas de un parametro, los recibe y los puede renderizar o trabajar
-routerCategories.get('/:categorieId/products/:productId', (req, res) => {
-  const { categorieId, productId } = req.params;
-  res.json([
-    {
-      name: 'Category 1',
-      categorieId,
-      productId
-    }
-  ])
+router.get('/:categoryId/products/:productId', (req, res) => {
+  const { categoryId, productId } = req.params;
+  res.json({
+    categoryId,
+    productId,
+  });
 })
 
-module.exports = routerCategories;
+
+module.exports = router;
