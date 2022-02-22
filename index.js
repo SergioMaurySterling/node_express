@@ -4,7 +4,7 @@ const cors = require('cors');
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -19,7 +19,7 @@ app.get('/nueva-ruta', (req, res) => {
 const whitelist =['http://localhost:3000', 'http://localhost:3001', 'http://www.requi.com.co'];
 const options = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
