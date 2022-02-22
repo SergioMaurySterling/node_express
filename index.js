@@ -1,19 +1,28 @@
 const express = require('express');
-const routerApi = require('./routes/index.js');
+const routerApi = require('./routes');
+
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+
 const app = express();
-app.use(express.json())
-const { logErrors, clientErrorHandler, boomErrorHandler } = require('./middlewares/error.handler.js');
 const port = 3000;
 
-//Aqui estamos llamando los middleware y asignandolos a la app
-app.use(logErrors);
-app.use(boomErrorHandler);
-app.use(clientErrorHandler);
+app.use(express.json());
 
-// Escuchar el puerto
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+app.get('/', (req, res) => {
+  res.send('Hola mi server en express');
+});
+
+app.get('/nueva-ruta', (req, res) => {
+  res.send('Hola, soy una nueva ruta');
+});
+
 routerApi(app);
 
+app.use(logErrors);
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
+
+app.listen(port, () => {
+  console.log('Mi port' +  port);
+});
